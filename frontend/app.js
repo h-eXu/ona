@@ -665,22 +665,35 @@ function consultAI() {
         return;
     }
     
-    // Simular chamada à API do Perplexity
     responseDiv.innerHTML = '<div class="loading">Consultando Perplexity Pro...</div>';
     responseDiv.classList.add('loading');
     
-    setTimeout(() => {
-        const response = generateAIResponse(input);
+    fetch('https://ona-two.vercel.app/consulta-perplexity', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            texto: input,
+            secao: appState.currentBuilderSection
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
         responseDiv.classList.remove('loading');
         responseDiv.innerHTML = `
             <h4>💡 Sugestão da IA:</h4>
-            <p>${response}</p>
+            <p>${data.sugestao || data.mensagem}</p>
             <div style="margin-top: 12px;">
                 <button class="btn btn--primary" onclick="applyAISuggestion()">Aplicar Sugestão</button>
                 <button class="btn btn--outline" onclick="closeModal()">Fechar</button>
             </div>
         `;
-    }, 2500);
+    })
+    .catch(error => {
+        responseDiv.classList.remove('loading');
+        responseDiv.innerHTML = `<p style="color: red;">Erro ao consultar IA: ${error.message}</p>`;
+    });
 }
 
 function generateAIResponse(input) {
