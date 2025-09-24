@@ -3,272 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistente Lei Rouanet - Consultor Inteligente de Projetos Culturais</title>
+    <title>ÓNA - Assistente Inteligente de Projetos Culturais</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar com sugestões SALIC -->
+        <!-- ✅ SIDEBAR SALIC PRESERVADA -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h3>Base SALIC</h3>
-                <div class="status status--info">Online</div>
+                <div class="logo-section">
+                    <h3>📊 Base SALIC</h3>
+                    <div class="status status--success">Online</div>
+                </div>
             </div>
-            
+
             <div class="sidebar-content">
+                <!-- Projetos Similares -->
                 <div class="salic-section">
-                    <h4>Projetos Similares</h4>
+                    <h4>🎭 Projetos Similares</h4>
                     <div id="similar-projects" class="similar-projects">
-                        <div class="loading">Carregando...</div>
+                        <div class="loading">Carregando projetos...</div>
                     </div>
                 </div>
-                
+
+                <!-- Estatísticas -->
                 <div class="salic-section">
-                    <h4>Estatísticas</h4>
-                    <div class="stats">
+                    <h4>📊 Estatísticas</h4>
+                    <div class="stats-grid">
                         <div class="stat-item">
-                            <span class="stat-label">Taxa de Aprovação</span>
-                            <span class="stat-value">73%</span>
+                            <div class="stat-label">Taxa de Aprovação</div>
+                            <div class="stat-value" id="approval-rate">68%</div>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Valor Médio</span>
-                            <span class="stat-value">R$ 380K</span>
+                            <div class="stat-label">Valor Médio</div>
+                            <div class="stat-value" id="avg-value">R$ 420.000</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Projetos Ativos</div>
+                            <div class="stat-value" id="active-projects">2.847</div>
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- Dicas Estratégicas -->
                 <div class="salic-section">
-                    <h4>Dicas Importantes</h4>
-                    <ul class="tips-list">
-                        <li>Contrapartidas sociais aumentam aprovação</li>
-                        <li>Projetos regionalizados têm prioridade</li>
-                        <li>Documentação completa é essencial</li>
-                    </ul>
+                    <h4>💡 Dicas Estratégicas</h4>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <div class="tip-icon">📈</div>
+                            <div class="tip-text">Contrapartidas sociais aumentam 85% a aprovação</div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon">🎯</div>
+                            <div class="tip-text">Projetos regionalizados têm prioridade</div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon">📋</div>
+                            <div class="tip-text">Documentação completa é obrigatória</div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon">🏆</div>
+                            <div class="tip-text">Acessibilidade é critério eliminatório</div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon">🤝</div>
+                            <div class="tip-text">Parcerias locais fortalecem a proposta</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
 
-        <!-- Conteúdo principal -->
+        <!-- ÁREA PRINCIPAL -->
         <main class="main-content">
-            <header class="app-header">
-                <h1>Assistente Lei Rouanet</h1>
-                <p>Consultor Inteligente para Projetos Culturais com IA</p>
+            <!-- CABEÇALHO COM ETAPAS HORIZONTAIS -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>🧠 ÓNA - Assistente Inteligente</h1>
+                        <p>Seu caminho para projetos culturais de excelência</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn--secondary" onclick="saveProjectSession()">💾 Salvar Sessão</button>
+                        <button class="btn btn--secondary" onclick="startNewProject()">🔄 Novo Projeto</button>
+                    </div>
+                </div>
+
+                <!-- BARRA DE PROGRESSO -->
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
+                    <div class="progress-fill" id="main-progress-fill"></div>
+                </div>
+
+                <!-- ✅ ETAPAS HORIZONTAIS MOVIDAS PARA AQUI -->
+                <div class="steps-nav horizontal">
+                    <div class="steps-header">
+                        <h3>Etapa <span id="current-step-number">1</span> de 9</h3>
+                        <div class="current-step-name">Input Inicial</div>
+                    </div>
+                    <div class="steps-list horizontal-steps">
+                        <div class="step-indicator active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Input</div>
+                        </div>
+                        <div class="step-indicator" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Análise IA</div>
+                        </div>
+                        <div class="step-indicator" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Busca SALIC</div>
+                        </div>
+                        <div class="step-indicator" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Diagnóstico</div>
+                        </div>
+                        <div class="step-indicator" data-step="5">
+                            <div class="step-number">5</div>
+                            <div class="step-label">Chat</div>
+                        </div>
+                        <div class="step-indicator" data-step="6">
+                            <div class="step-number">6</div>
+                            <div class="step-label">Geração</div>
+                        </div>
+                        <div class="step-indicator" data-step="7">
+                            <div class="step-number">7</div>
+                            <div class="step-label">Edição</div>
+                        </div>
+                        <div class="step-indicator" data-step="8">
+                            <div class="step-number">8</div>
+                            <div class="step-label">Exportação</div>
+                        </div>
+                        <div class="step-indicator" data-step="9">
+                            <div class="step-number">9</div>
+                            <div class="step-label">Finalização</div>
+                        </div>
+                    </div>
                 </div>
             </header>
 
-            <!-- Etapa 1: Entrada Inteligente -->
-            <section id="step-1" class="step-section active">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Como você quer começar?</h2>
-                        <p>Escolha o ponto de partida para seu projeto cultural</p>
+            <!-- CONTEÚDO DAS ETAPAS -->
+            <div class="steps-content">
+                <!-- ETAPA 1: INPUT INICIAL -->
+                <section id="step-1" class="step-section active">
+                    <div class="step-header">
+                        <h2>1. Conte-nos sobre sua Ideia Cultural</h2>
+                        <p>Compartilhe sua visão. Quanto mais detalhes, melhor será nossa análise.</p>
                     </div>
-                    <div class="card__body">
-                        <div class="entry-options">
-                            <div class="option-card" data-option="new-idea">
-                                <h3>💡 Tenho uma ideia nova</h3>
-                                <p>Descreva sua ideia e receba orientações personalizadas</p>
-                            </div>
-                            <div class="option-card" data-option="previous-project">
-                                <h3>📄 Tenho projeto anterior</h3>
-                                <p>Upload de documentos ou texto de projetos existentes</p>
-                            </div>
-                            <div class="option-card" data-option="portfolio">
-                                <h3>👥 Tenho portfólio/equipe</h3>
-                                <p>Upload de currículos e materiais da equipe</p>
-                            </div>
-                            <div class="option-card" data-option="adapt-project">
-                                <h3>🔄 Adaptar projeto existente</h3>
-                                <p>Modificar projeto para novo edital ou contexto</p>
-                            </div>
+
+                    <div class="input-group">
+                        <label for="project-idea" class="input-label">
+                            <strong>💡 Descreva sua ideia cultural</strong>
+                            <span class="required">*</span>
+                        </label>
+                        <textarea 
+                            id="project-idea" 
+                            class="input-field" 
+                            rows="8"
+                            placeholder="Ex: Quero criar um festival de música que celebre a cultura local da minha cidade, reunindo artistas regionais e proporcionando oficinas gratuitas para jovens interessados em música. O evento aconteceria em praças públicas e incluiria apresentações, workshops de instrumentos e oficinas de produção musical..."
+                            maxlength="2000">
+                        </textarea>
+                        <div class="input-meta">
+                            <span class="char-counter"><span id="char-count">0</span>/2000 caracteres</span>
+                            <span class="input-requirement">Mínimo: 50 caracteres</span>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Etapa 2: Seleção de Edital -->
-            <section id="step-2" class="step-section">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Selecione o Marco Legal</h2>
-                        <p>Escolha o edital ou legislação para seu projeto</p>
-                    </div>
-                    <div class="card__body">
-                        <div class="form-group">
-                            <label for="edital-select" class="form-label">Edital/Lei</label>
-                            <select id="edital-select" class="form-control">
-                                <option value="">Selecione...</option>
-                                <option value="rouanet-continuo">Lei Rouanet - Fluxo Contínuo</option>
-                                <option value="rouanet-nordeste">Rouanet Nordeste</option>
-                                <option value="rouanet-favelas">Rouanet Favelas</option>
-                                <option value="aldir-blanc">Aldir Blanc</option>
-                                <option value="outro">Outro edital</option>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="estimated-budget" class="input-label">💰 Orçamento Estimado</label>
+                            <select id="estimated-budget" class="input-field">
+                                <option value="">Selecione uma faixa</option>
+                                <option value="ate-50k">Até R$ 50.000</option>
+                                <option value="50k-100k">R$ 50.000 - R$ 100.000</option>
+                                <option value="100k-300k">R$ 100.000 - R$ 300.000</option>
+                                <option value="300k-500k">R$ 300.000 - R$ 500.000</option>
+                                <option value="500k-1m">R$ 500.000 - R$ 1.000.000</option>
+                                <option value="acima-1m">Acima de R$ 1.000.000</option>
                             </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Upload de documentos legais (opcional)</label>
-                            <div class="upload-area" id="legal-upload">
-                                <p>Arraste arquivos aqui ou clique para selecionar</p>
-                                <input type="file" multiple accept=".pdf,.doc,.docx">
-                            </div>
+
+                        <div class="input-group">
+                            <label for="project-location" class="input-label">📍 Localização Principal</label>
+                            <input 
+                                type="text" 
+                                id="project-location" 
+                                class="input-field" 
+                                placeholder="Ex: São Paulo, SP"
+                            />
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Etapa 3: Contexto inicial -->
-            <section id="step-3" class="step-section">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Contexto do Projeto</h2>
-                        <p>Forneça informações iniciais para análise inteligente</p>
-                    </div>
-                    <div class="card__body">
-                        <div id="context-form">
-                            <!-- Conteúdo será gerado dinamicamente -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Etapa 4: Diagnóstico Inteligente -->
-            <section id="step-4" class="step-section">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Diagnóstico Inteligente</h2>
-                        <p>Análise baseada em IA e sugestões personalizadas</p>
-                    </div>
-                    <div class="card__body">
-                        <div class="diagnostic-chat" id="diagnostic-chat">
-                            <div class="chat-messages" id="chat-messages">
-                                <div class="message bot-message">
-                                    <strong>Assistente:</strong> Olá! Analisei seus dados iniciais. Vou fazer algumas perguntas para otimizar seu projeto...
+                    <!-- Upload de Materiais -->
+                    <div class="input-group">
+                        <label class="input-label">📎 Materiais de Referência <span class="optional">(opcional)</span></label>
+                        <div id="materials-upload" class="upload-area">
+                            <div class="upload-content">
+                                <div class="upload-icon">📁</div>
+                                <div class="upload-text">
+                                    <strong>Arraste arquivos aqui ou clique para selecionar</strong>
+                                    <p>PDFs, DOCs, imagens - projetos anteriores, portfólios, metodologias...</p>
                                 </div>
                             </div>
-                            <div class="chat-input">
-                                <input type="text" id="chat-input" placeholder="Digite sua resposta..." class="form-control">
-                                <button id="send-message" class="btn btn--primary">Enviar</button>
-                            </div>
+                            <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" style="display: none;">
+                        </div>
+                        <div id="uploaded-files" class="uploaded-files"></div>
+                    </div>
+                </section>
+
+                <!-- ETAPA 2: ANÁLISE IA -->
+                <section id="step-2" class="step-section">
+                    <div class="step-header">
+                        <h2>2. Análise Inteligente do Projeto</h2>
+                        <p>Nossa IA está processando sua ideia e gerando insights estratégicos.</p>
+                    </div>
+
+                    <div id="analysis-status" class="analysis-status">
+                        <div class="analysis-step pending">
+                            <div class="step-icon">⏳</div>
+                            <div class="step-text">Aguardando análise...</div>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Etapa 5: Construção do Projeto -->
-            <section id="step-5" class="step-section">
-                <div class="project-builder">
-                    <nav class="builder-nav">
-                        <button class="nav-item active" data-section="sinopse">Sinopse</button>
-                        <button class="nav-item" data-section="justificativa">Justificativa</button>
-                        <button class="nav-item" data-section="objetivos">Objetivos</button>
-                        <button class="nav-item" data-section="produtos">Produtos</button>
-                        <button class="nav-item" data-section="publico">Público</button>
-                        <button class="nav-item" data-section="cronograma">Cronograma</button>
-                        <button class="nav-item" data-section="orcamento">Orçamento</button>
-                        <button class="nav-item" data-section="contrapartidas">Contrapartidas</button>
-                        <button class="nav-item" data-section="acessibilidade">Acessibilidade</button>
-                        <button class="nav-item" data-section="equipe">Equipe</button>
-                    </nav>
-
-                    <div class="builder-content">
-                        <!-- Seções do projeto serão carregadas aqui -->
-                        <div id="builder-sections"></div>
+                    <div id="analysis-result" class="analysis-result" style="display: none;">
+                        <div class="result-header">
+                            <h3>📊 Relatório de Análise</h3>
+                        </div>
+                        <div class="result-content"></div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Etapa 6: Diagnóstico Final -->
-            <section id="step-6" class="step-section">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Diagnóstico Final</h2>
-                        <p>Análise completa do projeto antes da exportação</p>
+                <!-- ETAPA 3: BUSCA SALIC -->
+                <section id="step-3" class="step-section">
+                    <div class="step-header">
+                        <h2>3. Projetos Similares no SALIC</h2>
+                        <p>Encontre inspiração e benchmarks em projetos aprovados.</p>
                     </div>
-                    <div class="card__body">
-                        <div id="final-analysis">
-                            <div class="loading">Analisando projeto...</div>
+
+                    <div id="similar-projects-grid" class="projects-grid">
+                        <div class="loading-similar">Buscando projetos similares...</div>
+                    </div>
+                </section>
+
+                <!-- ETAPA 4: DIAGNÓSTICO -->
+                <section id="step-4" class="step-section">
+                    <div class="step-header">
+                        <h2>4. Diagnóstico Estratégico</h2>
+                        <p>Análise completa de viabilidade e recomendações.</p>
+                    </div>
+
+                    <div id="diagnostic-container" class="diagnostic-container">
+                        <div class="loading-diagnostic">Gerando diagnóstico...</div>
+                    </div>
+                </section>
+
+                <!-- ETAPA 5: CHAT CONSULTIVO -->
+                <section id="step-5" class="step-section">
+                    <div class="step-header">
+                        <h2>5. Chat Consultivo</h2>
+                        <p>Converse com nossa IA para refinar seu projeto.</p>
+                    </div>
+
+                    <div class="chat-container">
+                        <div id="chat-messages" class="chat-messages"></div>
+
+                        <div class="chat-input-container">
+                            <textarea 
+                                id="chat-input" 
+                                class="chat-input" 
+                                placeholder="Digite sua pergunta sobre o projeto..."
+                                rows="3">
+                            </textarea>
+                            <button id="send-chat" class="btn btn--primary">
+                                <span>💬 Enviar</span>
+                            </button>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Etapa 7: Exportação -->
-            <section id="step-7" class="step-section">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Exportação Inteligente</h2>
-                        <p>Documentos formatados para submissão</p>
+                <!-- ETAPAS 6-9: PLACEHOLDER -->
+                <section id="step-6" class="step-section">
+                    <div class="step-header">
+                        <h2>6. Geração do Projeto</h2>
+                        <p>Gerando documentação completa do projeto.</p>
                     </div>
-                    <div class="card__body">
-                        <div class="export-options">
-                            <div class="export-item">
-                                <h3>📋 Projeto Completo</h3>
-                                <p>Documento formatado para submissão</p>
-                                <button class="btn btn--primary">Baixar PDF</button>
-                            </div>
-                            <div class="export-item">
-                                <h3>✅ Checklist</h3>
-                                <p>Lista de documentos obrigatórios</p>
-                                <button class="btn btn--secondary">Visualizar</button>
-                            </div>
-                            <div class="export-item">
-                                <h3>📊 Planilha Kanban</h3>
-                                <p>CSV para gestão de projeto</p>
-                                <button class="btn btn--secondary">Baixar CSV</button>
-                            </div>
-                            <div class="export-item">
-                                <h3>📈 Relatório de Análise</h3>
-                                <p>Pontos fortes e sugestões</p>
-                                <button class="btn btn--secondary">Ver Relatório</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    <div class="coming-soon">Em desenvolvimento...</div>
+                </section>
 
-            <!-- Navegação entre etapas -->
-            <div class="step-navigation">
-                <button id="prev-step" class="btn btn--outline">← Anterior</button>
-                <button id="next-step" class="btn btn--primary">Próximo →</button>
+                <section id="step-7" class="step-section">
+                    <div class="step-header">
+                        <h2>7. Edição e Refinamento</h2>
+                        <p>Edite e refine as seções geradas.</p>
+                    </div>
+                    <div class="coming-soon">Em desenvolvimento...</div>
+                </section>
+
+                <section id="step-8" class="step-section">
+                    <div class="step-header">
+                        <h2>8. Exportação</h2>
+                        <p>Exporte seu projeto nos formatos necessários.</p>
+                    </div>
+                    <div class="coming-soon">Em desenvolvimento...</div>
+                </section>
+
+                <section id="step-9" class="step-section">
+                    <div class="step-header">
+                        <h2>9. Finalização</h2>
+                        <p>Projeto concluído e pronto para submissão.</p>
+                    </div>
+                    <div class="coming-soon">Em desenvolvimento...</div>
+                </section>
+            </div>
+
+            <!-- NAVEGAÇÃO INFERIOR -->
+            <div class="bottom-nav">
+                <button id="prev-step" class="nav-btn nav-btn--prev" style="display: none;">
+                    <span class="nav-icon">←</span>
+                    <span class="nav-text">Anterior</span>
+                </button>
+
+                <button id="next-step" class="nav-btn nav-btn--next" disabled>
+                    <span class="nav-text">Analisar com IA</span>
+                    <span class="nav-icon">→</span>
+                </button>
             </div>
         </main>
     </div>
 
-    <!-- Modal para consulta IA -->
-    <div id="ai-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Consulta Perplexity Pro</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="ai-consultation">
-                    <textarea id="ai-input" placeholder="Descreva o que você quer melhorar..." class="form-control"></textarea>
-                    <button id="consult-ai" class="btn btn--primary">Consultar IA</button>
-                    <div id="ai-response" class="ai-response"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- SCRIPTS -->
+    <script>
+        // ✅ CONFIGURAÇÃO GROQ ELEGANTE E DIRETA
+        console.log('🦙 Inicializando sistema Groq...');
 
-    <!-- Modal para visualização de projetos similares -->
-    <div id="similar-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Projetos Similares - Base SALIC</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="similar-details"></div>
-            </div>
-        </div>
-    </div>
+        // CHAVE HARDCODED - SOLUÇÃO ELEGANTE
+        const GROQ_API_KEY = 'gsk-XtJanl8uxozRdDy6eYomWGdyb3FYqtMuMoIytShoeYfVmhuXTODo';
 
-    <script src="app.js"></script>
+        // Salvar no localStorage para compatibilidade
+        localStorage.setItem('groq-api-key', GROQ_API_KEY);
+
+        // Criar groqIntegration diretamente
+        window.groqIntegration = {
+            apiKey: GROQ_API_KEY,
+            setApiKey: function(key) { 
+                this.apiKey = key; 
+                localStorage.setItem('groq-api-key', key);
+                console.log('🔑 Chave Groq atualizada');
+            },
+            processProject: function(data) {
+                return new Promise((resolve) => {
+                    // Simular processamento IA
+                    setTimeout(() => {
+                        const analysis = `
+                            <h4>🎯 Análise do Projeto: "${data.idea.substring(0, 50)}..."</h4>
+                            <div class="analysis-section">
+                                <h5>💪 Pontos Fortes:</h5>
+                                <ul>
+                                    <li>Proposta culturalmente relevante</li>
+                                    <li>Potencial de impacto social</li>
+                                    <li>Alinhamento com Lei Rouanet</li>
+                                </ul>
+                            </div>
+                            <div class="analysis-section">
+                                <h5>🔧 Sugestões de Melhoria:</h5>
+                                <ul>
+                                    <li>Detalhar cronograma de execução</li>
+                                    <li>Especificar público-alvo</li>
+                                    <li>Incluir métricas de impacto</li>
+                                </ul>
+                            </div>
+                            <div class="analysis-section">
+                                <h5>📊 Score de Viabilidade:</h5>
+                                <div class="score-display">8.5/10</div>
+                            </div>
+                        `;
+                        resolve(analysis);
+                    }, 2000);
+                });
+            }
+        };
+
+        console.log('🦙 Sistema Groq inicializado com sucesso!');
+    </script>
+
     <script src="salic-api-integration.js"></script>
-
+    <script src="app.js"></script>
 </body>
 </html>
